@@ -4,7 +4,11 @@ var connections = [
   { sourceName: 'three', targetName: 'four'},
   { sourceName: 'three', targetName: 'five'},
   { sourceName: 'four', targetName: 'six'},
-  { sourceName: 'five', targetName: 'six'}
+  { sourceName: 'five', targetName: 'six'},
+  { sourceName: 'six', targetName: 'seven'},
+  { sourceName: 'err', targetName: 'seven'},
+  { sourceName: 'whew', targetName: 'seven'},
+
 ];
 
 
@@ -24,7 +28,17 @@ jsPlumb.bind("ready", function() {
 
   var unique = []; // storing unique nodes
 
-  jsPlumb.Defaults.Connector = "Straight";
+  // jsPlumb.Defaults.Connector = "Straight";
+
+  var arrowCommon = { foldback: 0.8, fillStyle: "grey", width: 10 };
+
+  jsPlumb.importDefaults({
+    Connector: ["Straight"],
+    Endpoints : [ [ "Dot", { radius:5 } ], [ "Dot", { radius:2 } ] ],
+    ConnectionOverlays: [[ "Arrow", { location:1 }, arrowCommon]],
+    PaintStyle: { lineWidth: 2, strokeStyle: 'rgba(10,0,0,0.5' }
+  });
+
   var container = document.getElementById("container");
 
   for (var i = 0; i < keys.length; i++) {
@@ -49,8 +63,11 @@ jsPlumb.bind("ready", function() {
     // insert to DOM iff there is a node
     if (out.childNodes.length !== 0) {
       container.appendChild(out);
+
+      if (out.childNodes.length === 1) {
+        out.className = "col-xs-2 outer-box";
+      }
     }
-    
   }
   
   // need to get the last element on the DOM
@@ -64,6 +81,9 @@ jsPlumb.bind("ready", function() {
   out.appendChild(e);
 
   container.appendChild(out);
+  out.className = "col-xs-2 outer-box";
+  out.style.margin = '57px 0';
+  console.log(out.style);
 
 
   jsPlumb.setContainer(container);
