@@ -1,0 +1,27 @@
+#container {
+  position: relative;
+}
+
+.pad {
+  height: 150px;
+}
+
+.box {
+  border: 1px solid black;
+  margin-top: 30px;
+}
+
+/*#one {
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  background-color: red;
+}
+
+#two {
+  position: absolute;
+  left: 400px;
+  height: 100px;
+  width: 100px;
+  background-color: blue;
+}*/
