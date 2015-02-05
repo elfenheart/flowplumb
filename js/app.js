@@ -2,7 +2,6 @@ var connections = [
   { sourceName: 'one', targetName: 'three'},
   { sourceName: 'two', targetName: 'three'},
   { sourceName: 'three', targetName: 'four'},
-  { sourceName: 'three', targetName: 'five'},
   { sourceName: 'four', targetName: 'six'},
   { sourceName: 'five', targetName: 'six'}
 ];
@@ -35,11 +34,9 @@ var keys = _.keys(pair);
 //   }
 // }
 
-
-
-
 jsPlumb.bind("ready", function() {
 
+  jsPlumb.Defaults.Connector = "Straight";
   var container = document.getElementById("container");
 
   for (var i = 0; i < keys.length; i++) {
@@ -69,14 +66,15 @@ jsPlumb.bind("ready", function() {
   container.appendChild(out);
 
 
-
   jsPlumb.setContainer(container);
+
+  var dynamicAnchors = ['Left', 'Right'];
 
   for (var i = 0; i<connections.length; i++) {
     var sourceDiv = document.getElementById(connections[i].sourceName);
     var targetDiv = document.getElementById(connections[i].targetName);
 
-    jsPlumb.connect({ source: sourceDiv, target: targetDiv });
+    jsPlumb.connect({ source: sourceDiv, target: targetDiv, anchor: "AutoDefault" });
   }
 
 });
