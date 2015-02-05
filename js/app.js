@@ -17,22 +17,7 @@ for (var i = 0; i<connections.length; i++) {
   pair[connections[i].targetName].push(connections[i].sourceName);
 }
 
-console.log(pair);
-
 var keys = _.keys(pair);
-
-// getting unique nodes
-// var nodes = [];
-
-// for (var i = 0; i<connections.length; i++) {
-//   if (nodes.indexOf(connections[i].sourceName) < 0) {
-//     nodes.push(connections[i].sourceName);
-//   }
-
-//   if (nodes.indexOf(connections[i].targetName) < 0) {
-//     nodes.push(connections[i].targetName);
-//   }
-// }
 
 jsPlumb.bind("ready", function() {
 
@@ -53,6 +38,7 @@ jsPlumb.bind("ready", function() {
 
     container.appendChild(out);
   }
+  
 
   var out = document.createElement('div');
   out.className = "col-xs-2";
@@ -67,8 +53,6 @@ jsPlumb.bind("ready", function() {
 
 
   jsPlumb.setContainer(container);
-
-  var dynamicAnchors = ['Left', 'Right'];
 
   for (var i = 0; i<connections.length; i++) {
     var sourceDiv = document.getElementById(connections[i].sourceName);
