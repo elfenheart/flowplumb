@@ -2,6 +2,7 @@ var connections = [
   { sourceName: 'one', targetName: 'three'},
   { sourceName: 'two', targetName: 'three'},
   { sourceName: 'three', targetName: 'four'},
+  { sourceName: 'three', targetName: 'five'},
   { sourceName: 'four', targetName: 'six'},
   { sourceName: 'five', targetName: 'six'}
 ];
@@ -21,6 +22,8 @@ var keys = _.keys(pair);
 
 jsPlumb.bind("ready", function() {
 
+  var unique = []; // storing unique nodes
+
   jsPlumb.Defaults.Connector = "Straight";
   var container = document.getElementById("container");
 
@@ -29,17 +32,28 @@ jsPlumb.bind("ready", function() {
     out.className = "col-xs-2";
 
     for (var j = 0; j < pair[keys[i]].length; j++) {
-      var e = document.createElement('div');
-      e.id = pair[keys[i]][j];
-      e.className = 'box text-center';
-      e.innerHTML = pair[keys[i]][j];
-      out.appendChild(e);
+
+      // if the node exist, skip
+      if (unique.indexOf(pair[keys[i]][j]) < 0) {
+        unique.push( pair[keys[i]][j] );
+
+        var e = document.createElement('div');
+        e.id = pair[keys[i]][j];
+        e.className = 'box text-center';
+        e.innerHTML = pair[keys[i]][j];
+        out.appendChild(e);
+      }
+      
     }
 
-    container.appendChild(out);
+    // insert to DOM iff there is a node
+    if (out.childNodes.length !== 0) {
+      container.appendChild(out);
+    }
+    
   }
   
-
+  // need to get the last element on the DOM
   var out = document.createElement('div');
   out.className = "col-xs-2";
 
